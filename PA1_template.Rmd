@@ -12,8 +12,6 @@ output: html_document
 
 
 ```{r}
-##library(ggplot2)
-##library(dplyr)
 
 MyData <- read.csv("activity.csv",header=TRUE,sep=",",fill=TRUE)
 
@@ -47,7 +45,7 @@ print(paste("The median of the total steps taken each day is ",MD))
 
 ```{r}
 x <- aggregate(steps~interval,data=MyData, na.rm=TRUE, FUN=mean)
-head(x)
+
 plot(x,type="l", xlab = "Intervals of 5-min", ylab="Total steps")
 
 ```
@@ -81,10 +79,10 @@ print(paste(" The mean steps for the original data is ",MD, " and the mean for t
 
 hist(NewSumDate$steps,main="Total steps per day with Imputed Data",xlab="Steps")
 ```
+
 # Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
+
 ```{r}
-
-
 wends <- c("Saturday","Sunday")
 #logical vector
 weekendYes <- weekdays(as.Date(MyData$date)) %in% wends
@@ -96,8 +94,7 @@ MyNewData$DayType <- factor(MyNewData$DayType)
 
 WKDAY <- aggregate(steps ~ interval,  data= subset(MyNewData, DayType=="weekday"), mean)
 WKEND <- aggregate(steps ~ interval,  data= subset(MyNewData, DayType=="weekend"), mean)
-head(WKDAY)
-head(WKEND)
+
 #make 2 panel plot
 par(mfrow=c(2,1),mar=c(5,4,4,1))
 plot(WKDAY,type="l",xlab="Weekday 5 min interval",ylab="Average steps")
